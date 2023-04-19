@@ -29,6 +29,28 @@ public:
             (m_im * c.m_rl - m_rl * c.m_im) / (c.m_rl * c.m_rl + c.m_im * c.m_im));
     }
 
+    template<typename T>
+    inline CComplexNumber operator *(const T& i) {
+        return CComplexNumber(m_rl * i, m_im * i);
+    }
+
+    template<typename T>
+    inline CComplexNumber operator /(const T& i) {
+        return CComplexNumber(m_rl / i, m_im / i);
+    }
+
+    template<typename T>
+    inline CComplexNumber& operator /=(const T& i) {
+        m_rl /= i;
+        m_im /= i;
+        return *this;
+    }
+
+    template<typename T>
+    inline T abs() {
+        return sqrt(pow(m_rl, 2) + pow(m_im, 2));
+    }
+
     void   SetValue(double rl, double im);
 
 public:

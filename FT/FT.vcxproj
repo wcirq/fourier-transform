@@ -143,6 +143,9 @@
     <ClInclude Include="ComplexNumber.h" />
     <ClInclude Include="Dft.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

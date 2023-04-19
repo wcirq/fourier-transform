@@ -32,13 +32,13 @@ void CDft::clear_dft_vector()
 
 void CDft::print()
 {
-    char msg[256] = "11111 ";
+    char msg[256] = "      ";
 
     if ((!m_has_dft_vector) || (NULL == m_dft_vector) || (m_dft_vector_size <= 0))
         return;
 
     for (int i = 0; i < m_dft_vector_size; i++) {
-        sprintf(msg + 6, "%d: %lf + %lfi", i + 1, m_dft_vector[i].m_rl, m_dft_vector[i].m_im);
+        sprintf(msg + 6, "%d: %lf + %lfi\n", i + 1, m_dft_vector[i].m_rl, m_dft_vector[i].m_im);
         printf(msg);
     }
 }
@@ -80,7 +80,7 @@ bool CDft::idft(LPVOID OUT* pVec, int OUT* ilen)
 
     if (*pVec)
         delete[] * pVec;
-    *pVec = (LPVOID)new double[m_dft_vector_size];
+    *pVec = (LPVOID)new CComplexNumber[m_dft_vector_size];
 
     CComplexNumber   cplTemp(0, 0);
     CComplexNumber   cplResult(0, 0);
@@ -92,7 +92,8 @@ bool CDft::idft(LPVOID OUT* pVec, int OUT* ilen)
             cplTemp.SetValue(cos(power), sin(power));
             cplResult = cplResult + m_dft_vector[u] * cplTemp;
         }
-        ((double*)*pVec)[x] = cplResult.m_rl / m_dft_vector_size; cplResult.SetValue(0, 0);
+        ((CComplexNumber*)*pVec)[x] = cplResult / m_dft_vector_size;
+        cplResult.SetValue(0, 0);
     }
 
     *ilen = m_dft_vector_size;
